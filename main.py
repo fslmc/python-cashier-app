@@ -1,4 +1,4 @@
-from pdf_factory import create_new_receipt  
+from pdf_factory import create_new_receipt, collect_all_items, open_file 
 
 def show_menu():
     print("\n" + "-" * 40)
@@ -9,7 +9,24 @@ def show_menu():
     print("3. 🚪 Exit")
     print("-" * 40)
 
+def handle_create_receipt():
+    print("\n✅ Creating new receipt...")
+    items = collect_all_items()
+    if items:
+        filepath = create_new_receipt(items) 
+        input(f"\n✅ Receipt created at {filepath}! Press Enter...")
+        open_file(filepath)
+    else:
+        input("\n⚠️ No items added. Press Enter...")
+
 def main():
+
+    actions = {
+        1: handle_create_receipt,
+        # 2: handle_view_history,
+    }
+
+
     print("\n" + "=" * 40)
     print("   🛒  WELCOME TO CASHIER APP  🛒")
     print("=" * 40 + "\n")
@@ -26,21 +43,13 @@ def main():
                 continue
 
             choice_num = int(choice)
-
-            if choice_num == 1:
-                print("\n✅ Creating new receipt...")
-                create_new_receipt()
-                input("\n✅ Receipt created! Press Enter to continue...")
-
-            elif choice_num == 2:
-                print("\n📜 Viewing receipt history...")
-                print("📄 No receipts found yet.")
-                input("\nPress Enter to continue...")
-
-            elif choice_num == 3:
+            if choice_num == 3:
                 print("\n👋 Thank you for using Cashier App. Goodbye!\n")
                 break
 
+            action = actions.get(choice_num)
+            if action:
+                action()
             else:
                 print("\n❌ Invalid choice! Please enter 1, 2, or 3.")
                 input("Press Enter to try again...")
