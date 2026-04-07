@@ -1,1 +1,6 @@
 history/*.pdf
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
