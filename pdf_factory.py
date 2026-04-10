@@ -28,6 +28,12 @@ def create_single_item():
     }, None
 
 def open_file(filepath):
+    path = Path(filepath)
+    
+    if not path.exists():
+        print(f"Error: The file {path} does not exist.")
+        return
+
     try:
         if platform.system() == 'Darwin':       # macOS
             subprocess.call(('open', filepath))
