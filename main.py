@@ -1,4 +1,4 @@
-from pdf_factory import create_new_receipt, collect_all_items, open_file 
+from pdf_factory import create_new_receipt, collect_transaction, open_file 
 
 def show_menu():
     print("\n" + "-" * 40)
@@ -11,7 +11,7 @@ def show_menu():
 
 def handle_create_receipt():
     print("\n✅ Creating new receipt...")
-    items = collect_all_items()
+    items = collect_transaction()
     if items:
         filepath = create_new_receipt(items) 
         input(f"\n✅ Receipt created at {filepath}! Press Enter...")
